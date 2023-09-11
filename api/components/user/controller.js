@@ -26,14 +26,14 @@ export default function(injectedStore) {
         if (body.id) {
             user.id = body.id
         } else {
-            user.id = nanoid
+            user.id = nanoid()
         }
 
         if (body.password || body.username) {
             await auth.upsert({
                 id: user.id,
                 username: user.username,
-                password: user.password
+                password: body.password
             })
         }
 
