@@ -1,6 +1,7 @@
 import {Router} from 'express';
 import {success, error} from '../../../network/response.js'
 import controller from './index.js'
+import checkAuth from './middleware.js'
 
 const router = Router();
 
@@ -21,7 +22,14 @@ router.get('/:id', (req, res) => {
     // success(req, res, userList, 200);
 });
 
-router.post('/', (req, res) => {
+router.post('/' ,(req, res) => {
+    controller.upsertUser(req.body).then(user => {
+        success(req, res, user, 200)
+    });
+    // success(req, res, userList, 200);
+});
+
+router.put('/', checkAuth('update') ,(req, res) => {
     controller.upsertUser(req.body).then(user => {
         success(req, res, user, 200)
     });

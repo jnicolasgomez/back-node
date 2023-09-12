@@ -14,7 +14,6 @@ export default function(injectedStore) {
         const data = await injectedStore.query(TABLE, { username: username});
         return bcrypt.compare(password, data.password).then( sonIguales => {
             if (sonIguales) {
-                console.log(sonIguales)
                 return auth.sign(data);
             } else {
                 throw new Error('Información inválida');
