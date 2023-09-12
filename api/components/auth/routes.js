@@ -9,6 +9,7 @@ router.post('/login', (req, res) => {
     controller.login(req.body.username, req.body.password).then((token) => {
         success (req, res, token, 200);
     }).catch((err) => {
+        console.error(err);
         error(req, res, "Información invalida", 400)
     });
     

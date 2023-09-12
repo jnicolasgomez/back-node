@@ -39,5 +39,12 @@ export default function(injectedStore) {
 
         return injectedStore.upsert(TABLE, user)
     }
-    return { listUsers, getUserById , upsertUser}
+
+    function follow(from, to) {
+        return injectedStore.upsert(TABLE + '_follow', {
+            user_from: from,
+            user_to: to
+        })
+    }
+    return { listUsers, getUserById , upsertUser, follow}
 }

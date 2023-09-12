@@ -20,7 +20,11 @@ const check = {
         if (decoded.id !== owner) {
             throw error('No permissions', 401);
         }
-    }
+    },
+    logged: function(req, owner) {
+        //
+        const decoded = decodeHeader(req);
+    },
 }
 
 function getToken(auth) {
