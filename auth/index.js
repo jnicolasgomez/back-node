@@ -1,5 +1,6 @@
 import jwt from 'jsonwebtoken';
 import config from '../config.js'
+import error from '../utils/error.js'
 
 const secret = config.jwt.secret;
 
@@ -17,7 +18,7 @@ const check = {
         const decoded = decodeHeader(req);
 
         if (decoded.id !== owner) {
-            throw new Error('No permissions');
+            throw error('No permissions', 401);
         }
     }
 }
