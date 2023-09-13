@@ -72,21 +72,30 @@ function update(table, data) {
     })
 }
 
-function query(table, query) {
+function query(table, query, join) {
+    let joinQuery = '';
+    if (join) {
+        const key = Object.keys(join)[0];
+        const val = join[key];
+        joinQuery = `JOIN ${key} ON ${table}.${val} = ${key}.id`;
+    }
     return new Promise((resolve, reject) => {
-        connection.query(`SELECT * FROM ${table} WHERE ?`, query, (err, result) => {
+        connection.query(`SELECT * FROM ${table} ${joinQuery} WHERE ${table}.?`, query, (err, result) => {
             if (err) return reject(err);
             resolve(result[0] || null);
         });
     })
 }
 
-function upsert(table, data) {
-    if (data && data.id) {
-        return update(table, data);
-    } else {
-        return insert(table, data);
+async function upsert(table, data) {
+    if(data && data.id) {
+        const existingId = await get(table, data.id)[0];
+        if (existingId) {
+            return update(table, data);
+        } else {
+            return insert(table, data);
+        }
     }
 }
 
-export {list, get, upsert, query}
+export {list, get, upsert, query, insert}

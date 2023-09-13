@@ -16,4 +16,4 @@ app.use(errors);
 
 app.listen(config.api.port, () => {
     console.log(`Api listening on port ${config.api.port}`);
-})
+});

@@ -41,10 +41,17 @@ export default function(injectedStore) {
     }
 
     function follow(from, to) {
-        return injectedStore.upsert(TABLE + '_follow', {
+        return injectedStore.insert(TABLE + '_follow', {
             user_from: from,
             user_to: to
         })
     }
-    return { listUsers, getUserById , upsertUser, follow}
+
+    async function getFollowing(user) {
+        const join = {};
+        join[TABLE] = 'user_to';
+        const query = {user_from: user};
+        return await injectedStore.query(TABLE + '_follow', query, join);
+    }
+    return { listUsers, getUserById , upsertUser, follow, getFollowing}
 }

@@ -18,6 +18,12 @@ router.get('/:id', (req, res, next) => {
     }).catch(next);
 });
 
+router.get('/:id/following', (req, res, next) => {
+    controller.getFollowing(req.params.id).then(user => {
+        success(req, res, user, 200)
+    }).catch(next);
+});
+
 router.post('/' ,(req, res, next) => {
     controller.upsertUser(req.body).then(user => {
         success(req, res, user, 201)
