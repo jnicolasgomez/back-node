@@ -1,5 +1,5 @@
 import controller from './controller.js'
-import * as store from '../../../store/mysql.js'
+import store from '../../../store/remote-mysql.js'
 
 
 export default controller(store);

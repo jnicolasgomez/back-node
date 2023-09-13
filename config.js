@@ -10,5 +10,9 @@ export default {
         user: process.env.MYSQL_USER || 'root',
         password: process.env.MYSQL_PASS || 'password',
         database: process.env.MYSQL_DB || 'my_db',
+    },
+    mysqlService: {
+        port: process.env.MYSQL_SRV_PORT || 3001,
+        host: process.env.MYSQL_SRV_HOST || 'localhost',
     }
 };
