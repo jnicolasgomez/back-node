@@ -21,24 +21,9 @@ await client.connect();
 
 function list(table) {
     return new Promise(async (resolve, reject) => {
-        console.log(table);
         try {
-            const res = await client.get(table)
-            /**client.get(table, (err, data) => {
-                console.log('ENETERD LIST');
-                // console.log(client.connect);
-                console.log(err);
-                if (err) {
-                    console.log('AAAAAAAAAAA');
-                    return reject(err);
-                }
-                let res = data || null;
-                if(data) {
-                    res = JSON.stringify(data);
-                }
-                resolve(res);
-            })**/
-            resolve(res)
+            const res = await client.get(table);
+            resolve(JSON.parse(res))
         }catch( err) {
             console.log('error has occured');
             console.log(err);

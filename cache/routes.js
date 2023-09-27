@@ -12,7 +12,6 @@ router.put('/:table', upsert);
 
 async function list(req, res, next) {
     try {
-        console.log('entered list route')
         store.list(req.params.table).then(data => {
             console.log(data);
             success(req, res, data, 200)

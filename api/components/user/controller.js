@@ -1,16 +1,29 @@
 import { nanoid } from 'nanoid';
 import * as store from '../../../store/dummy.js'
+import * as cache from '../../../store/redis.js'
 import auth from '../auth/index.js'
 
 const TABLE = 'user';
 
 
-export default function(injectedStore) {
+export default function(injectedStore, injectedCache) {
+    
     if (!injectedStore) {
         injectedStore = store;
     }
-    function listUsers() {
-        return injectedStore.list(TABLE);
+    if (!injectedCache) {
+        injectedCache = cache;
+    }
+    async function listUsers() {
+        let  users = await injectedCache.list(TABLE);
+        if(!users) {
+            console.log('user not in cache')
+            users = await injectedStore.list(TABLE);
+            cache.upsert(TABLE, users);
+        } else {
+            console.log("Getting data from cache");
+        }
+        return users;
     }
 
     function getUserById(id) {
