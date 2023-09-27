@@ -18,5 +18,14 @@ export default {
     post: {
         port: process.env.API_POST_PORT || 3002,
         host: process.env.API_POST_HOST || 'localhost'
+    },
+    cacheService: {
+        port: process.env.API_CACHE_PORT || 3003,
+        host: process.env.API_CACHE_HOST || 'localhost'
+    },
+    redis: {
+        port: process.env.API_REDIS_PORT || 6397,
+        host: process.env.API_REDIS_HOST || 'localhost',
+        password: process.env.API_REDIS_PWD || ''
     }
 };
